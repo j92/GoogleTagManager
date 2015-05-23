@@ -1,0 +1,24 @@
+{
+    "name": "tvlooy/googletagmanager",
+    "description": "",
+    "type": "bolt-extension",
+    "keywords": [],
+    "require": {
+        "bolt/bolt": ">=2.0.0,<3.0.0"
+    },
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Tom Van Looy",
+            "email": "tom@ctors.net"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "init.php"
+        ],
+        "psr-4": {
+            "Bolt\\Extension\\Ctors\\GoogleTagManager\\": ""
+        }
+    }
+}
