@@ -14,7 +14,7 @@ class Extension extends \Bolt\BaseExtension
 
     function initialize()
     {
-        $this->addSnippet(SnippetLocation::END_OF_HEAD, 'insertTagManager');
+        $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertTagManager');
     }
 
     public function insertTagManager()
