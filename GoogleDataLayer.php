@@ -4,8 +4,6 @@ namespace Bolt\Extension\Ctors\GoogleTagManager;
 
 /**
  * Class for our Google DataLayer object.
- *
- * @author Joost van Driel, joostvdriel+github@gmail.com
  */
 class GoogleDataLayer
 {
