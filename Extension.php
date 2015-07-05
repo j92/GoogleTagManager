@@ -4,7 +4,6 @@
 namespace Bolt\Extension\Ctors\GoogleTagManager;
 
 use Bolt\Extensions\Snippets\Location as SnippetLocation;
-use Bolt\Extension\Ctors\GoogleTagManager\GoogleDataLayer;
 
 class Extension extends \Bolt\BaseExtension
 {
@@ -15,6 +14,7 @@ class Extension extends \Bolt\BaseExtension
 
     function initialize()
     {
+
         $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertTagManager');
 
         // Define a twig function to push data to the DataLayer
