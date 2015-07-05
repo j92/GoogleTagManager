@@ -5,9 +5,6 @@ namespace Bolt\Extension\Ctors\GoogleTagManager;
 
 use Bolt\Extensions\Snippets\Location as SnippetLocation;
 
-
-include_once('GoogleDataLayer.php');
-
 class Extension extends \Bolt\BaseExtension
 {
     /** @var bool */
