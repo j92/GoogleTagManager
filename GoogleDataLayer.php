@@ -21,7 +21,7 @@ class GoogleDataLayer {
     }
 
     /**
-     * Push an array to the DataLayer
+     * Push a single key and value to the DataLayer
      *
      * @param string $key
      * @param string $value
@@ -34,6 +34,22 @@ class GoogleDataLayer {
             if( !isset($this->data[$key]) ){
                 $this->data[$key] = $value;
             }
+        }
+    }
+
+    /**
+     * Push an array to the DataLayer
+     *
+     * @param array $key
+     */
+    public function pushDataArray($data){
+
+        if( isset($data) && is_array($data) && !empty($data) ){
+
+            foreach($data as $key => $value){
+                $this->pushData($key,$value);
+            }
+
         }
     }
 
