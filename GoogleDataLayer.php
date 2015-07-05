@@ -11,15 +11,7 @@ class GoogleDataLayer {
 
     /** @var array */
     protected $data;
-
-    /**
-     * Default constructor
-     */
-    public function __construct()
-    {
-
-    }
-
+    
     /**
      * Push a single key and value to the DataLayer
      *
