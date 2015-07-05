@@ -21,9 +21,9 @@ class Extension extends \Bolt\BaseExtension
     function initialize()
     {
 
-        if( isset($this->config['data_layer_on']) && $this->config['data_layer_on'] == true ){
+        if (isset($this->config['data_layer_on']) && $this->config['data_layer_on'] == true) {
             $this->dataLayerOn = true;
-        }else{
+        } else {
             $this->dataLayerOn = false;
         }
 
@@ -32,7 +32,7 @@ class Extension extends \Bolt\BaseExtension
         // Define a twig function to push data to the DataLayer
         $this->addTwigFunction('GoogleDataLayerPush', 'twigGoogleDataLayerPush');
 
-        if( $this->dataLayerOn ){
+        if ($this->dataLayerOn) {
 
             $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertDataLayer');
         }
@@ -63,7 +63,8 @@ EOM;
         return new \Twig_Markup($html, 'UTF-8');
     }
 
-    public function insertDataLayer(){
+    public function insertDataLayer()
+    {
 
         // Get DataLayer Service
         $googleDataLayerService = $this->app['GoogleDataLayer'];
@@ -75,13 +76,14 @@ EOM;
     /**
      * Enable users to push data to DataLayer from within their templates
      */
-    public function twigGoogleDataLayerPush($key, $value=''){
+    public function twigGoogleDataLayerPush($key, $value = '')
+    {
 
         // Get DataLayer Service
         $googleDataLayerService = $this->app['GoogleDataLayer'];
 
         // Push and validate the data
-        $googleDataLayerService->pushData($key,$value);
+        $googleDataLayerService->pushData($key, $value);
 
     }
 
