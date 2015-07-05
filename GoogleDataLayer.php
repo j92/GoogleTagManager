@@ -17,19 +17,22 @@ class GoogleDataLayer {
      */
     public function __construct()
     {
-        $this->initialize();
+
     }
 
     /**
      * Push an array to the DataLayer
      *
-     * @param array $data
+     * @param string $key
+     * @param string $value
      */
-    public function pushData($data){
+    public function pushData($key, $value = ''){
 
-        if( isset($data) ){
-            if(is_array($data) && !empty($data)){
-                array_push($this->data, $data);
+        if( isset($key) && !empty($key) ){
+            // we should allow empty values in datalayer
+            // only add key to data array if it doesnt exist yet
+            if( !isset($this->data[$key]) ){
+                $this->data[$key] = $value;
             }
         }
     }
@@ -49,12 +52,12 @@ class GoogleDataLayer {
         // Loop door de data array en bouw dataLayer String
         foreach( $data as $key => $value ){
 
-            $data_layer .= "'".$key."': ".$value.",\n";
+            $data_layer .= "'".$key."': '".htmlentities($value)."',";
 
         }
 
-        // Remove last comma and /n
-        $data_layer = substr($data_layer, 0, -2);
+        // Remove last comma
+        $data_layer = substr($data_layer, 0, -1);
 
         return $data_layer;
 
@@ -68,13 +71,13 @@ class GoogleDataLayer {
     public function getDataLayerScript(){
 
         // basic of datalayer
-        $data_layer = "<script>dataLayer = [{ \n";
+        $data_layer = "<script>dataLayer = [{";
 
         // Convert data to string
         $data_layer .= $this->arrayToString($this->data);
 
         // Finish datalayer
-        $data_layer .= "\n }]</script>";
+        $data_layer .= "}]</script>";
 
         return $data_layer;
 

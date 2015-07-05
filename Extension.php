@@ -5,6 +5,9 @@ namespace Bolt\Extension\Ctors\GoogleTagManager;
 
 use Bolt\Extensions\Snippets\Location as SnippetLocation;
 
+
+include_once('GoogleDataLayer.php');
+
 class Extension extends \Bolt\BaseExtension
 {
     public function getName()
@@ -14,6 +17,15 @@ class Extension extends \Bolt\BaseExtension
 
     function initialize()
     {
+        // Get DataLayer Service
+        $gdl = $this->app['GoogleDataLayer'];
+
+        $gdl->pushData('page','frontpage');
+
+        $gdl_js = $gdl->getDataLayerScript();
+
+        dump($gdl_js);
+
         $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertTagManager');
     }
 
