@@ -78,7 +78,7 @@ class GoogleDataLayer
         // base of datalayer
         $data_layer = "";
 
-        // Loop door de data array en bouw dataLayer String
+        // through the data and create the DataLayer string
         foreach ($data as $key => $value) {
 
             $data_layer .= "'" . $key . "': '" . htmlentities($value, ENT_QUOTES) . "',";
