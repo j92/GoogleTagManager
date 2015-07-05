@@ -26,7 +26,7 @@ class Extension extends \Bolt\BaseExtension
         }else{
             $this->dataLayerOn = false;
         }
-dump($this->config);
+
         $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertTagManager');
 
         // Define a twig function to push data to the DataLayer
