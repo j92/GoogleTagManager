@@ -54,7 +54,7 @@ class GoogleDataLayer
      */
     public function getDataLayerScript()
     {
-        // basic of datalayer
+        // base of datalayer
         $data_layer = "<script>dataLayer = [{";
 
         // Convert data to string
@@ -77,7 +77,7 @@ class GoogleDataLayer
             return "";
         }
 
-        // basis van datalayer
+        // base of datalayer
         $data_layer = "";
 
         // Loop door de data array en bouw dataLayer String
