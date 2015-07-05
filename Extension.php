@@ -4,6 +4,7 @@
 namespace Bolt\Extension\Ctors\GoogleTagManager;
 
 use Bolt\Extensions\Snippets\Location as SnippetLocation;
+use Bolt\Extension\Ctors\GoogleTagManager\GoogleDataLayer;
 
 class Extension extends \Bolt\BaseExtension
 {
@@ -21,11 +22,6 @@ class Extension extends \Bolt\BaseExtension
 
         // Insert the DataLayer at start of the body, before the TagManager
         $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertDataLayer');
-    }
-
-    public function isSafe()
-    {
-        return true;
     }
 
     public function insertTagManager()
