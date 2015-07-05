@@ -7,9 +7,6 @@ use Bolt\Extensions\Snippets\Location as SnippetLocation;
 
 class Extension extends \Bolt\BaseExtension
 {
-    /** @var bool */
-    protected $dataLayerOn;
-
     public function getName()
     {
         return "Google Tag Manager";
@@ -17,23 +14,18 @@ class Extension extends \Bolt\BaseExtension
 
     function initialize()
     {
-
-        if (isset($this->config['data_layer_on']) && $this->config['data_layer_on'] == true) {
-            $this->dataLayerOn = true;
-        } else {
-            $this->dataLayerOn = false;
-        }
-
         $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertTagManager');
 
         // Define a twig function to push data to the DataLayer
         $this->addTwigFunction('GoogleDataLayerPush', 'twigGoogleDataLayerPush');
 
-        if ($this->dataLayerOn) {
+        // Insert the DataLayer at start of the body, before the TagManager
+        $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertDataLayer');
+    }
 
-            $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertDataLayer');
-        }
-
+    public function isSafe()
+    {
+        return true;
     }
 
     public function insertTagManager()
@@ -62,12 +54,10 @@ EOM;
 
     public function insertDataLayer()
     {
-
         // Get DataLayer Service
         $googleDataLayerService = $this->app['GoogleDataLayer'];
 
         return new \Twig_Markup($googleDataLayerService->getDataLayerScript(), 'UTF-8');
-
     }
 
     /**
