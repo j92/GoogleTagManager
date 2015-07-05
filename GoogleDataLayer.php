@@ -30,7 +30,7 @@ class GoogleDataLayer {
 
         if( isset($key) && !empty($key) ){
             // we should allow empty values in datalayer
-            // only add key to data array if it doesnt exist yet
+            // only add key to data array if it doesn't exist yet
             if( !isset($this->data[$key]) ){
                 $this->data[$key] = $value;
             }
@@ -52,7 +52,7 @@ class GoogleDataLayer {
         // Loop door de data array en bouw dataLayer String
         foreach( $data as $key => $value ){
 
-            $data_layer .= "'".$key."': '".htmlentities($value)."',";
+            $data_layer .= "'".$key."': '".htmlentities($value,ENT_QUOTES)."',";
 
         }
 

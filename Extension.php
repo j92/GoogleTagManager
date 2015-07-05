@@ -17,16 +17,13 @@ class Extension extends \Bolt\BaseExtension
 
     function initialize()
     {
-        // Get DataLayer Service
-        $gdl = $this->app['GoogleDataLayer'];
 
-        $gdl->pushData('page','frontpage');
-
-        $gdl_js = $gdl->getDataLayerScript();
-
-        dump($gdl_js);
+        $this->addTwigFunction('GoogleDataLayerPush', 'twigGoogleDataLayerPush');
 
         $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertTagManager');
+
+        $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertDataLayer');
+
     }
 
     public function insertTagManager()
@@ -52,4 +49,27 @@ EOM;
 
         return new \Twig_Markup($html, 'UTF-8');
     }
+
+    public function insertDataLayer(){
+
+        // Get DataLayer Service
+        $googleDataLayerService = $this->app['GoogleDataLayer'];
+
+        return new \Twig_Markup($googleDataLayerService->getDataLayerScript(), 'UTF-8');
+
+    }
+
+    /**
+     * Enable users to push data to DataLayer from within their templates
+     */
+    public function twigGoogleDataLayerPush($key, $value=''){
+
+        // Get DataLayer Service
+        $googleDataLayerService = $this->app['GoogleDataLayer'];
+
+        // Push and validate the data
+        $googleDataLayerService->pushData($key,$value);
+
+    }
+
 }
