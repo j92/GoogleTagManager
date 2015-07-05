@@ -10,6 +10,9 @@ include_once('GoogleDataLayer.php');
 
 class Extension extends \Bolt\BaseExtension
 {
+    /** @var bool */
+    protected $dataLayerOn;
+
     public function getName()
     {
         return "Google Tag Manager";
@@ -18,11 +21,21 @@ class Extension extends \Bolt\BaseExtension
     function initialize()
     {
 
-        $this->addTwigFunction('GoogleDataLayerPush', 'twigGoogleDataLayerPush');
-
+        if( isset($this->config['data_layer_on']) && $this->config['data_layer_on'] == true ){
+            $this->dataLayerOn = true;
+        }else{
+            $this->dataLayerOn = false;
+        }
+dump($this->config);
         $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertTagManager');
 
-        $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertDataLayer');
+        // Define a twig function to push data to the DataLayer
+        $this->addTwigFunction('GoogleDataLayerPush', 'twigGoogleDataLayerPush');
+
+        if( $this->dataLayerOn ){
+
+            $this->addSnippet(SnippetLocation::START_OF_BODY, 'insertDataLayer');
+        }
 
     }
 
