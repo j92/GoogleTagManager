@@ -7,68 +7,44 @@ namespace Bolt\Extension\Ctors\GoogleTagManager;
  *
  * @author Joost van Driel, joostvdriel+github@gmail.com
  */
-class GoogleDataLayer {
+class GoogleDataLayer
+{
 
     /** @var array */
     protected $data;
-    
+
+    /**
+     * Push an array to the DataLayer
+     *
+     * @param array $data
+     */
+    public function pushDataArray($data)
+    {
+
+        if (isset($data) && is_array($data) && !empty($data)) {
+
+            foreach ($data as $key => $value) {
+                $this->pushData($key, $value);
+            }
+
+        }
+    }
+
     /**
      * Push a single key and value to the DataLayer
      *
      * @param string $key
      * @param string $value
      */
-    public function pushData($key, $value = ''){
-
-        if( isset($key) && !empty($key) ){
+    public function pushData($key, $value = '')
+    {
+        if (isset($key) && !empty($key)) {
             // we should allow empty values in datalayer
             // only add key to data array if it doesn't exist yet
-            if( !isset($this->data[$key]) ){
+            if (!isset($this->data[$key])) {
                 $this->data[$key] = $value;
             }
         }
-    }
-
-    /**
-     * Push an array to the DataLayer
-     *
-     * @param array $key
-     */
-    public function pushDataArray($data){
-
-        if( isset($data) && is_array($data) && !empty($data) ){
-
-            foreach($data as $key => $value){
-                $this->pushData($key,$value);
-            }
-
-        }
-    }
-
-    /**
-     * Convert data array to string
-     */
-    private function arrayToString($data){
-
-        if( empty($data) ){
-            return "";
-        }
-
-        // basis van datalayer
-        $data_layer = "";
-
-        // Loop door de data array en bouw dataLayer String
-        foreach( $data as $key => $value ){
-
-            $data_layer .= "'".$key."': '".htmlentities($value,ENT_QUOTES)."',";
-
-        }
-
-        // Remove last comma
-        $data_layer = substr($data_layer, 0, -1);
-
-        return $data_layer;
-
     }
 
     /**
@@ -76,8 +52,8 @@ class GoogleDataLayer {
      *
      * @return string
      */
-    public function getDataLayerScript(){
-
+    public function getDataLayerScript()
+    {
         // basic of datalayer
         $data_layer = "<script>dataLayer = [{";
 
@@ -86,6 +62,33 @@ class GoogleDataLayer {
 
         // Finish datalayer
         $data_layer .= "}]</script>";
+
+        return $data_layer;
+
+    }
+
+    /**
+     * Convert data array to string
+     */
+    private function arrayToString($data)
+    {
+
+        if (empty($data)) {
+            return "";
+        }
+
+        // basis van datalayer
+        $data_layer = "";
+
+        // Loop door de data array en bouw dataLayer String
+        foreach ($data as $key => $value) {
+
+            $data_layer .= "'" . $key . "': '" . htmlentities($value, ENT_QUOTES) . "',";
+
+        }
+
+        // Remove last comma
+        $data_layer = substr($data_layer, 0, -1);
 
         return $data_layer;
 
