@@ -1,5 +1,7 @@
 <?php
 
+namespace Bolt\Extension\Ctors\GoogleTagManager;
+
 /**
  * Class for our Google DataLayer object.
  *
@@ -9,11 +11,6 @@ class GoogleDataLayer {
 
     /** @var array */
     protected $data;
-
-    // function to add data
-    // function to remove data
-    // function to get the datalayer script
-    // function to get the data in the datalayer
 
     /**
      * Default constructor
@@ -35,14 +32,6 @@ class GoogleDataLayer {
                 array_push($this->data, $data);
             }
         }
-    }
-
-    public function removeData(){
-
-    }
-
-    public function getAllData(){
-
     }
 
     /**
